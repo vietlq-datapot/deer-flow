@@ -4,6 +4,7 @@ import {
   BellIcon,
   InfoIcon,
   BrainIcon,
+  KeyRoundIcon,
   PaletteIcon,
   SparklesIcon,
   WrenchIcon,
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AboutSettingsPage } from "@/components/workspace/settings/about-settings-page";
+import { AdminSettingsPage } from "@/components/workspace/settings/admin-settings-page";
 import { AppearanceSettingsPage } from "@/components/workspace/settings/appearance-settings-page";
 import { MemorySettingsPage } from "@/components/workspace/settings/memory-settings-page";
 import { NotificationSettingsPage } from "@/components/workspace/settings/notification-settings-page";
@@ -32,7 +34,8 @@ type SettingsSection =
   | "tools"
   | "skills"
   | "notification"
-  | "about";
+  | "about"
+  | "admin";
 
 type SettingsDialogProps = React.ComponentProps<typeof Dialog> & {
   defaultSection?: SettingsSection;
@@ -72,6 +75,7 @@ export function SettingsDialog(props: SettingsDialogProps) {
       { id: "tools", label: t.settings.sections.tools, icon: WrenchIcon },
       { id: "skills", label: t.settings.sections.skills, icon: SparklesIcon },
       { id: "about", label: t.settings.sections.about, icon: InfoIcon },
+      { id: "admin", label: t.settings.sections.admin, icon: KeyRoundIcon },
     ],
     [
       t.settings.sections.appearance,
@@ -80,6 +84,7 @@ export function SettingsDialog(props: SettingsDialogProps) {
       t.settings.sections.skills,
       t.settings.sections.notification,
       t.settings.sections.about,
+      t.settings.sections.admin,
     ],
   );
   return (
@@ -134,6 +139,7 @@ export function SettingsDialog(props: SettingsDialogProps) {
               )}
               {activeSection === "notification" && <NotificationSettingsPage />}
               {activeSection === "about" && <AboutSettingsPage />}
+              {activeSection === "admin" && <AdminSettingsPage />}
             </div>
           </ScrollArea>
         </div>

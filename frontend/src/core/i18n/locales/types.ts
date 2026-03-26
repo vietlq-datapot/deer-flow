@@ -241,6 +241,7 @@ export interface Translations {
       skills: string;
       notification: string;
       about: string;
+      admin: string;
     };
     memory: {
       title: string;
