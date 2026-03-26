@@ -1,0 +1,103 @@
+{
+  "version": "1.0.0",
+  "currency": "USD",
+  "last_updated": "2025-01",
+  "disclaimer": "Estimates only. Actual costs vary by vendor, region, negotiation, and usage patterns.",
+
+  "infrastructure": {
+    "cloud_compute": {
+      "small": { "monthly_usd": 500, "description": "2-4 vCPUs, 8-16GB RAM, 3-5 services" },
+      "medium": { "monthly_usd": 2000, "description": "8-16 vCPUs, 32-64GB RAM, 10-20 services" },
+      "large": { "monthly_usd": 8000, "description": "32+ vCPUs, 128GB+ RAM, 20+ services" }
+    },
+    "managed_database": {
+      "postgresql_small": { "monthly_usd": 200, "description": "db.t3.medium, 100GB" },
+      "postgresql_medium": { "monthly_usd": 800, "description": "db.r5.large, 500GB" },
+      "data_warehouse_small": { "monthly_usd": 1500, "description": "Redshift dc2.large 2-node" },
+      "data_warehouse_medium": { "monthly_usd": 6000, "description": "Redshift ra3.xlplus 2-node" }
+    },
+    "object_storage": {
+      "per_tb_monthly": 25,
+      "data_transfer_per_gb": 0.09
+    },
+    "kafka_managed": {
+      "small": { "monthly_usd": 400, "description": "MSK 3-broker t3.small" },
+      "medium": { "monthly_usd": 2000, "description": "MSK 3-broker m5.large" }
+    }
+  },
+
+  "software_licensing": {
+    "open_source": { "monthly_usd": 0, "note": "Airflow, Spark, MLflow, Superset — free" },
+    "power_bi_pro": { "per_user_monthly_usd": 10 },
+    "tableau_creator": { "per_user_monthly_usd": 70 },
+    "databricks": {
+      "dbu_per_hour": 0.40,
+      "typical_monthly": { "small": 2000, "medium": 8000, "large": 25000 }
+    },
+    "snowflake": {
+      "credits_per_hour": 3.00,
+      "typical_monthly": { "small": 1500, "medium": 6000, "large": 20000 }
+    }
+  },
+
+  "implementation_services": {
+    "data_platform_basic": {
+      "usd": 30000,
+      "duration_months": 3,
+      "description": "Basic data lake + ETL + 1 BI dashboard"
+    },
+    "data_platform_full": {
+      "usd": 120000,
+      "duration_months": 6,
+      "description": "Full data platform with streaming, catalog, quality"
+    },
+    "ml_platform_pilot": {
+      "usd": 50000,
+      "duration_months": 3,
+      "description": "MLflow + 1 use case + basic serving"
+    },
+    "ml_platform_full": {
+      "usd": 180000,
+      "duration_months": 9,
+      "description": "Full MLOps platform with CI/CD, monitoring, feature store"
+    },
+    "cloud_migration_small": {
+      "usd": 40000,
+      "duration_months": 3,
+      "description": "< 20 workloads, lift-and-shift"
+    },
+    "cloud_migration_large": {
+      "usd": 180000,
+      "duration_months": 9,
+      "description": "> 50 workloads, with modernization"
+    }
+  },
+
+  "training": {
+    "data_engineering_bootcamp": { "usd": 5000, "days": 3 },
+    "bi_tool_training": { "usd": 3000, "days": 2 },
+    "ml_fundamentals": { "usd": 8000, "days": 5 },
+    "cloud_platform_admin": { "usd": 6000, "days": 4 }
+  },
+
+  "roi_benchmarks": {
+    "data_platform": {
+      "typical_payback_months": 18,
+      "cost_reduction_pct": 20,
+      "productivity_gain_pct": 30,
+      "note": "From consolidated reporting and self-serve analytics"
+    },
+    "ml_platform": {
+      "typical_payback_months": 12,
+      "revenue_impact_pct": 5,
+      "cost_reduction_pct": 15,
+      "note": "From churn prevention, demand forecasting, automation"
+    },
+    "cloud_migration": {
+      "typical_payback_months": 24,
+      "capex_to_opex_shift": true,
+      "infrastructure_cost_reduction_pct": 30,
+      "note": "From rightsizing and eliminating hardware refresh cycles"
+    }
+  }
+}

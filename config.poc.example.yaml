@@ -1,0 +1,117 @@
+# ============================================================================
+# DeerFlow Multi-Agent POC Configuration
+# Survey → Proposal workflow via Telegram
+# ============================================================================
+#
+# Usage:
+#   cp config.poc.example.yaml config.yaml
+#   # Fill in your API keys below
+#   make dev
+#
+# This config routes Telegram messages to the survey_proposal_agent graph
+# instead of the default lead_agent, enabling the Survey → Proposal workflow.
+# ============================================================================
+
+config_version: 3
+log_level: info
+
+token_usage:
+  enabled: false
+
+# ============================================================================
+# Model — use Claude Sonnet for both Survey and Architect agents
+# ============================================================================
+models:
+  - name: claude-sonnet-4
+    display_name: Claude Sonnet 4
+    use: langchain_anthropic:ChatAnthropic
+    model: claude-sonnet-4-20250514
+    api_key: $ANTHROPIC_API_KEY
+    max_tokens: 8192
+    temperature: 0.3
+    supports_vision: false
+
+# ============================================================================
+# Tools (minimal set — POC doesn't use sandbox tools)
+# ============================================================================
+tool_groups:
+  - name: web
+
+tools:
+  - name: web_search
+    group: web
+    use: deerflow.community.tavily.tools:web_search_tool
+    max_results: 5
+
+tool_search:
+  enabled: false
+
+# ============================================================================
+# Sandbox — local for POC
+# ============================================================================
+sandbox:
+  use: deerflow.sandbox.local:LocalSandboxProvider
+
+# ============================================================================
+# Skills — point to the project skills directory
+# ============================================================================
+skills:
+  container_path: /mnt/skills
+
+# ============================================================================
+# Title & Memory
+# ============================================================================
+title:
+  enabled: true
+  max_words: 6
+  max_chars: 60
+  model_name: null
+
+memory:
+  enabled: false  # Disable global memory for POC (survey data stored in graph state)
+
+# ============================================================================
+# Checkpointer — SQLite for conversation persistence across turns
+# ============================================================================
+checkpointer:
+  type: sqlite
+  connection_string: checkpoints.db
+
+# ============================================================================
+# IM Channels — Route Telegram to survey_proposal_agent
+# ============================================================================
+channels:
+  langgraph_url: http://localhost:2024
+  gateway_url: http://localhost:8001
+
+  # Global session defaults
+  session:
+    assistant_id: lead_agent  # Default for other channels
+    config:
+      recursion_limit: 100
+    context:
+      thinking_enabled: false
+      is_plan_mode: false
+      subagent_enabled: false
+
+  # Telegram channel — routes to survey_proposal_agent
+  telegram:
+    enabled: true
+    bot_token: $TELEGRAM_BOT_TOKEN
+    allowed_users: []  # Empty = allow all users. Add Telegram user IDs to restrict.
+
+    # Route all Telegram messages to the Survey → Proposal agent
+    session:
+      assistant_id: survey_proposal_agent
+      config:
+        recursion_limit: 50
+      context:
+        thinking_enabled: false
+
+    # Optional: per-user overrides (e.g. admin users using lead_agent)
+    # users:
+    #   "YOUR_ADMIN_TELEGRAM_USER_ID":
+    #     assistant_id: lead_agent
+    #     context:
+    #       thinking_enabled: true
+    #       subagent_enabled: true
