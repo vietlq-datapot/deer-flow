@@ -19,16 +19,23 @@ token_usage:
   enabled: false
 
 # ============================================================================
-# Model — use Claude Sonnet for both Survey and Architect agents
+# Model — DeepSeek V3.2 for both Survey and Architect agents
+#
+# DeepSeek API model IDs:
+#   deepseek-chat     → DeepSeek-V3 / V3.2 (chat/instruct, non-thinking)
+#   deepseek-reasoner → DeepSeek-R1 (thinking/reasoning model)
+#
+# Get your API key at: https://platform.deepseek.com/api_keys
 # ============================================================================
 models:
-  - name: claude-sonnet-4
-    display_name: Claude Sonnet 4
-    use: langchain_anthropic:ChatAnthropic
-    model: claude-sonnet-4-20250514
-    api_key: $ANTHROPIC_API_KEY
+  - name: deepseek-v3
+    display_name: DeepSeek V3.2
+    use: langchain_deepseek:ChatDeepSeek
+    model: deepseek-chat
+    api_key: $DEEPSEEK_API_KEY
     max_tokens: 8192
     temperature: 0.3
+    supports_thinking: false
     supports_vision: false
 
 # ============================================================================
