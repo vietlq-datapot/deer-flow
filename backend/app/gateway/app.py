@@ -6,6 +6,7 @@ from fastapi import FastAPI
 
 from app.gateway.config import get_gateway_config
 from app.gateway.routers import (
+    admin,
     agents,
     artifacts,
     channels,
@@ -148,6 +149,10 @@ This gateway provides custom endpoints for models, MCP configuration, skills, an
                 "name": "health",
                 "description": "Health check and system status endpoints",
             },
+            {
+                "name": "admin",
+                "description": "Admin configuration — read and update API keys",
+            },
         ],
     )
 
@@ -183,6 +188,9 @@ This gateway provides custom endpoints for models, MCP configuration, skills, an
 
     # Channels API is mounted at /api/channels
     app.include_router(channels.router)
+
+    # Admin API is mounted at /api/admin
+    app.include_router(admin.router)
 
     @app.get("/health", tags=["health"])
     async def health_check() -> dict:

@@ -304,6 +304,7 @@ export const enUS: Translations = {
       skills: "Skills",
       notification: "Notification",
       about: "About",
+      admin: "Admin",
     },
     memory: {
       title: "Memory",

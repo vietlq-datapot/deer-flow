@@ -291,6 +291,7 @@ export const zhCN: Translations = {
       skills: "技能",
       notification: "通知",
       about: "关于",
+      admin: "管理员",
     },
     memory: {
       title: "记忆",
